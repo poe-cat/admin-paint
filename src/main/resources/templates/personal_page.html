@@ -6,5 +6,43 @@
 </head>
 <body>
 <h1>Welcome to your personal page, <span th:text="${userLogin}"></span></h1>
+
+<div align="center">
+    <h1>Commissions List</h1>
+    <a href="/new">Create New Commission</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Commission ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Hours</th>
+            <th>Payment</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="commission : ${listCommissions}">
+            <td th:text="${commission.id}">Product ID</td>
+            <td th:text="${commission.name}">Name</td>
+            <td th:text="${commission.address}">Address</td>
+            <td th:text="${commission.phone}">Phone</td>
+            <td th:text="${commission.hours}">Hours</td>
+            <td th:text="${commission.payment}">Payment</td>
+            <td th:text="${commission.description}">Description</td>
+            <td>
+                <a th:href="@{/edit/${commission.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/delete/${commission.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
 </body>
 </html>
