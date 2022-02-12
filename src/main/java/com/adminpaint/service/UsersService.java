@@ -19,6 +19,10 @@ public class UsersService {
             return null;
         }
         else {
+            if(usersRepository.findFirstByLogin(login).isPresent()) {
+                System.out.println("Duplicate login");
+                return null;
+            }
             Users users = new Users();
             users.setLogin(login);
             users.setPassword(password);
