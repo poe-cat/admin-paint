@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Page</title>
 </head>
 <body>
 <div align="center">
-    <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+    <h3 th:inline="text">Welcome, [[${#httpServletRequest.remoteUser}]]!</h3>
     <h1>Commissions List</h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout" />
@@ -23,7 +24,8 @@
             <th>Hours</th>
             <th>Payment</th>
             <th>Description</th>
-            <th>Actions</th>
+
+            <th sec:authorize="hasRole('ADMIN')">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -35,7 +37,8 @@
             <td th:text="${commission.hours}">Hours</td>
             <td th:text="${commission.payment}">Payment</td>
             <td th:text="${commission.description}">Description</td>
-            <td>
+
+            <td sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/edit/{id}(id=${commission.id})}">Edit</a>
                 &nbsp;&nbsp;&nbsp;
                 <a th:href="@{/delete/{id}(id=${commission.id})}">Delete</a>
