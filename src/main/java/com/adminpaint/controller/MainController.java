@@ -24,6 +24,14 @@ public class MainController {
         this.usersService = usersService;
     }
 
+    @RequestMapping("/")
+    public String viewHomePage(Model model) {
+        List<Commissions> listCommissions = service.listAll();
+        model.addAttribute("listCommissions", listCommissions);
+
+        return "index";
+    }
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerRequest", new Users());
