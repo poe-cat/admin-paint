@@ -5,10 +5,12 @@
     <title>Personal Page</title>
 </head>
 <body>
-<h1>Welcome to your personal page, <span th:text="${userLogin}"></span></h1>
-
 <div align="center">
+    <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
     <h1>Commissions List</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
     <a href="/new">Create New Commission</a>
     <br/><br/>
     <table border="1" cellpadding="10">
