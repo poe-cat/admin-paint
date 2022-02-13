@@ -26,7 +26,7 @@
         </thead>
         <tbody>
         <tr th:each="commission : ${listCommissions}">
-            <td th:text="${commission.id}">Product ID</td>
+            <td th:text="${commission.id}">Commission ID</td>
             <td th:text="${commission.name}">Name</td>
             <td th:text="${commission.address}">Address</td>
             <td th:text="${commission.phone}">Phone</td>
@@ -34,9 +34,9 @@
             <td th:text="${commission.payment}">Payment</td>
             <td th:text="${commission.description}">Description</td>
             <td>
-                <a th:href="@{/edit/${commission.id}}">Edit</a>
+                <a th:href="@{/edit/{id}(id=${commission.id})}">Edit</a>
                 &nbsp;&nbsp;&nbsp;
-                <a th:href="@{/delete/${commission.id}}">Delete</a>
+                <a th:href="@{/delete/{id}(id=${commission.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
