@@ -3,7 +3,6 @@ package com.adminpaint.controller;
 import com.adminpaint.exceptions.CommissionNotFoundException;
 import com.adminpaint.model.Client;
 import com.adminpaint.model.Commissions;
-import com.adminpaint.model.Users;
 import com.adminpaint.repository.ClientRepository;
 import com.adminpaint.service.CommissionsService;
 import com.adminpaint.service.UsersService;
@@ -27,56 +26,21 @@ public class MainController {
     @Autowired
     private UsersService usersService;
 
-    @RequestMapping("/")
-    public String viewHomePage(Model model) {
-        List<Commissions> listCommissions = service.listAll();
-        model.addAttribute("listCommissions", listCommissions);
 
+    @RequestMapping("/")
+    public String viewHomePage() {
         return "index";
     }
 
-    @GetMapping("/register")
-    public String getRegisterPage(Model model) {
-        model.addAttribute("registerRequest", new Users());
+    @RequestMapping("/commissions")
+    public String viewCommissionsPage(Model model) {
+        List<Commissions> listCommissions = service.listAll();
+        model.addAttribute("listCommissions", listCommissions);
 
-        return "register_page";
+        return "commissions";
     }
 
-    @GetMapping("/login")
-    public String getLoginPage(Model model) {
-        model.addAttribute("loginRequest", new Users());
-
-        return "login_page";
-    }
-
-    @PostMapping("/register")
-    public String register(@ModelAttribute Users users) {
-        System.out.println("register request: " + users);
-        Users registeredUser = usersService.registerUser(users.getLogin(), users.getPassword(), users.getEmail());
-
-        return registeredUser == null ? "error_page" : "redirect:/login";
-    }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute Users users, Model model) {
-        System.out.println("login request: " + users);
-
-        Users authenticated = usersService.authenticate(users.getLogin(), users.getPassword());
-
-        if(authenticated != null) {
-            model.addAttribute("userLogin", authenticated.getLogin());
-
-            List<Commissions> listCommissions = service.listAll();
-            model.addAttribute("listCommissions", listCommissions);
-
-            return "redirect:/";
-        }
-        else {
-            return "error_page";
-        }
-    }
-
-    @RequestMapping("/new")
+    @RequestMapping("/commissions/new")
     public String showNewCommissionPage(Model model) {
         List<Client> clientsList = clientRepository.findAll();
 
@@ -88,15 +52,15 @@ public class MainController {
         return "new_commission";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/commissions/save", method = RequestMethod.POST)
     public String saveCommission(@ModelAttribute("commission") Commissions commission, RedirectAttributes re) {
         service.save(commission);
         re.addFlashAttribute("message", "Commission has been saved successfully.");
 
-        return "redirect:/";
+        return "redirect:/commissions";
     }
 
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/commissions/edit/{id}")
     public String showEditCommissionPage(@PathVariable(name = "id") Integer id,
                                                Model model, RedirectAttributes re) {
         try {
@@ -107,11 +71,11 @@ public class MainController {
         } catch (CommissionNotFoundException e) {
             re.addFlashAttribute("message", e.getMessage());
 
-            return "redirect:/";
+            return "redirect:/commissions";
         }
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping("/commissions/delete/{id}")
     public String deleteCommission(@PathVariable(name = "id") Integer id, RedirectAttributes re) {
         try {
             service.delete(id);
@@ -119,6 +83,6 @@ public class MainController {
         } catch (CommissionNotFoundException e) {
             re.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/";
+        return "redirect:/commissions";
     }
 }
