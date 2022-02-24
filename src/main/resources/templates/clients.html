@@ -48,9 +48,9 @@
             <td th:text="${client.clientDescription}">Description</td>
 
             <td sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{/edit/{id}(id=${client.id})}">Edit</a>
+                <a th:href="@{/clients/edit/{id}(id=${client.id})}">Edit</a>
                 &nbsp;&nbsp;&nbsp;
-                <a th:href="@{/delete/{id}(id=${client.id})}">Delete</a>
+                <a th:href="@{/clients/delete/{id}(id=${client.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
