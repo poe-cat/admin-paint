@@ -32,9 +32,8 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
+            <th>Title</th>
             <th>Address</th>
-            <th>Phone</th>
             <th>Hours</th>
             <th>Payment</th>
             <th>Description</th>
@@ -46,9 +45,8 @@
         <tbody>
         <tr th:each="commission : ${listCommissions}">
             <td th:text="${commission.id}">#</td>
-            <td th:text="${commission.name}">Name</td>
+            <td th:text="${commission.title}">Name</td>
             <td th:text="${commission.address}">Address</td>
-            <td th:text="${commission.phone}">Phone</td>
             <td th:text="${commission.hours}">Hours</td>
             <td th:text="${commission.payment}">Payment</td>
             <td th:text="${commission.description}">Description</td>
