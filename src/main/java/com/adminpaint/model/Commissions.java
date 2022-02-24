@@ -10,11 +10,9 @@ public class Commissions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String title;
 
     private String address;
-
-    private int phone;
 
     private double hours;
 
