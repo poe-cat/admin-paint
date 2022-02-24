@@ -22,6 +22,11 @@ public class Commissions {
 
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
+
     public Integer getId() {
         return id;
     }
@@ -30,12 +35,12 @@ public class Commissions {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAddress() {
@@ -44,14 +49,6 @@ public class Commissions {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
     }
 
     public double getHours() {
@@ -78,16 +75,24 @@ public class Commissions {
         this.description = description;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public String toString() {
-        return "Commisions{" +
+        return "Commissions{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", address='" + address + '\'' +
-                ", phone=" + phone +
                 ", hours=" + hours +
                 ", payment=" + payment +
                 ", description='" + description + '\'' +
+                ", client=" + client +
                 '}';
     }
 }
