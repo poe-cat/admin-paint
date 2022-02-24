@@ -1,8 +1,10 @@
 package com.adminpaint.controller;
 
 import com.adminpaint.exceptions.CommissionNotFoundException;
+import com.adminpaint.model.Client;
 import com.adminpaint.model.Commissions;
 import com.adminpaint.model.Users;
+import com.adminpaint.repository.ClientRepository;
 import com.adminpaint.service.CommissionsService;
 import com.adminpaint.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class MainController {
 
     @Autowired
     private CommissionsService service;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Autowired
     private UsersService usersService;
@@ -73,7 +78,11 @@ public class MainController {
 
     @RequestMapping("/new")
     public String showNewCommissionPage(Model model) {
+        List<Client> clientsList = clientRepository.findAll();
+
         model.addAttribute("commission", new Commissions());
+        model.addAttribute("clientsList", clientsList);
+
         model.addAttribute("pageTitle", "Add new commission");
 
         return "new_commission";
