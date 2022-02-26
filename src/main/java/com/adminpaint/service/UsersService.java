@@ -13,18 +13,18 @@ public class UsersService {
         this.usersRepository = usersRepository;
     }
 
-    public Users registerUser(String login, String password, String email) {
+    public Users registerUser(String username, String password, String email) {
 
-        if(login == null || password == null) {
+        if(username == null || password == null) {
             return null;
         }
         else {
-            if(usersRepository.findFirstByLogin(login).isPresent()) {
-                System.out.println("Duplicate login");
+            if(usersRepository.findFirstByUsername(username).isPresent()) {
+                System.out.println("Duplicate username");
                 return null;
             }
             Users users = new Users();
-            users.setLogin(login);
+            users.setUsername(username);
             users.setPassword(password);
             users.setEmail(email);
 
@@ -32,7 +32,7 @@ public class UsersService {
         }
     }
 
-    public Users authenticate(String login, String password) {
-        return usersRepository.findByLoginAndPassword(login, password).orElse(null);
+    public Users authenticate(String username, String password) {
+        return usersRepository.findByUsernameAndPassword(username, password).orElse(null);
     }
 }
