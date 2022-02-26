@@ -64,8 +64,10 @@ public class MainController {
     public String showEditCommissionPage(@PathVariable(name = "id") Integer id,
                                                Model model, RedirectAttributes re) {
         try {
+            List<Client> clientsList = clientRepository.findAll();
             Commissions commission = service.get(id);
             model.addAttribute("commission", commission);
+            model.addAttribute("clientsList", clientsList);
             model.addAttribute("pageTitle", "Edit commission (ID: " + id + ")");
             return "edit_commission";
         } catch (CommissionNotFoundException e) {
