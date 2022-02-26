@@ -4,6 +4,7 @@ import com.adminpaint.exceptions.CommissionNotFoundException;
 import com.adminpaint.model.Client;
 import com.adminpaint.model.Commissions;
 import com.adminpaint.repository.ClientRepository;
+import com.adminpaint.repository.CommissionsRepository;
 import com.adminpaint.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private CommissionsRepository commissionsRepository;
+
     @GetMapping("/clients")
     public String listClients(Model model) {
         List<Client> clientsList = clientRepository.findAll();
@@ -32,6 +36,9 @@ public class ClientController {
 
     @RequestMapping("/clients/new")
     public String showNewClientForm(Model model) {
+        List<Commissions> listCommissions = commissionsRepository.findAll();
+
+        model.addAttribute("listCommissions", listCommissions);
         model.addAttribute("client", new Client());
 
         return "new_client";
@@ -49,6 +56,7 @@ public class ClientController {
     public String showEditClientsPage(@PathVariable(name = "id") Integer id,
                                          Model model, RedirectAttributes re) {
         try {
+            List<Commissions> listCommissions = commissionsRepository.findAll();
             Client client = clientService.get(id);
             model.addAttribute("client", client);
             model.addAttribute("pageTitle", "Edit client (ID: " + id + ")");
