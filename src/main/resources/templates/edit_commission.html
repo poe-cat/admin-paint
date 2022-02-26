@@ -11,6 +11,9 @@
 </head>
 
 <body>
+<!-- Importing NavBar -->
+<div th:insert="navbar.html :: navbar"></div>
+
 <div class="container-fluid">
     <div class="text-center"><h2>[[${pageTitle}]]</h2></div>
 
@@ -60,6 +63,17 @@
                 </div>
             </div>
 
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">Client</label>
+                <div class="col-sm-8">
+                    <select th:field="*{client}" class="form-control" required>
+                        <th:block th:each="client : ${clientsList}">
+                            <option th:text="${client.clientName}" th:value="${client.id}" />
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary m-2">Save</button>
                 <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
@@ -68,5 +82,7 @@
         </div>
     </form>
 </div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

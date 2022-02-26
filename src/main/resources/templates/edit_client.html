@@ -11,6 +11,9 @@
 </head>
 
 <body>
+<!-- Importing NavBar -->
+<div th:insert="navbar.html :: navbar"></div>
+
 <div class="container-fluid">
     <div class="text-center"><h2>[[${pageTitle}]]</h2></div>
 
@@ -53,5 +56,7 @@
         </div>
     </form>
 </div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

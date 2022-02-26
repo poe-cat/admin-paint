@@ -12,17 +12,17 @@
     <title>Your Clients</title>
 </head>
 <body>
-<div class="container-fluid text-center">
-    <h3 th:inline="text">Welcome, [[${#httpServletRequest.remoteUser}]]!</h3>
-    <h1>Clients List</h1>
+<!-- Importing NavBar -->
+<div th:insert="navbar.html :: navbar"></div>
 
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-primary m-2">Logout</button>
-    </form>
+<div class="container-fluid text-center">
+
+    <h1>Clients List</h1>
 
     <form th:action="@{clients/new}" method="post">
         <button type="submit" class="btn btn-success m-2">Add new client</button>
     </form>
+
 
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -56,7 +56,8 @@
         </tbody>
     </table>
 </div>
-
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

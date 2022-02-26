@@ -13,21 +13,25 @@
 </head>
 
 <body>
+<!-- Importing NavBar -->
+<div th:insert="navbar.html :: navbar"></div>
+
 <div class="container-fluid text-center">
-    <h3 th:inline="text">Hey, [[${#httpServletRequest.remoteUser}]]!</h3>
-    <h1>Welcome to your administrator's panel</h1>
 
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-primary m-2">Logout</button>
-    </form>
+    <div class="card text-center text-dark bg-light mb-3">
 
-    <div class ="btn-group-justified btn-group-sm btn-group-vertical">
-        <a href="/commissions" class="btn btn-success">Commissions List</a>
-        <a href="/clients" class="btn btn-success">Clients List</a>
+        <div class="card-body">
+            <h1 class="card-title" th:inline="text">Hey, [[${#httpServletRequest.remoteUser}]]!</h1>
+            <p class="card-text">Welcome to your administrator's panel</p>
+            <form th:action="@{/login}" method="post">
+                <button type="submit" class="btn btn-primary m-2">Log in</button>
+            </form>
+        </div>
     </div>
 
+
 </div>
-
-
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
