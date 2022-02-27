@@ -26,10 +26,10 @@
                 <h1 class="card-title" th:inline="text">Hey, [[${#httpServletRequest.remoteUser}]]!</h1>
 
                 <p class="card-text" sec:authorize="hasRole('USER')">
-                    Welcome to user's panel. You can display your lists.
+                    Welcome to User's Panel. You can display your commissions and clients lists.
                 </p>
                 <p class="card-text" sec:authorize="hasRole('ADMIN')">
-                    Welcome to your administrator's panel. You can display and edit your lists.
+                    Welcome to your administrator's panel. You can display and edit your commissions and clients lists.
                 </p>
 
                 <div class="row no-gutters">
@@ -37,7 +37,7 @@
                         <button class="button button1"><a class="a a1" href="/commissions">Commissions List</a></button>
                     </div>
                     <div class="col-md-6 form-group pr-md-1">
-                        <button class="button button1"><a class="a a1" href="/clients">Client's List</a></button>
+                        <button class="button button1"><a class="a a1" href="/clients">Clients List</a></button>
                     </div>
                 </div>
             </div>
