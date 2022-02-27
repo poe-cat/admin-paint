@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="headerfiles">
     <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
@@ -11,7 +11,7 @@
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Administrator's Page</a>
+        <a class="navbar-brand" href="/">Serious Business</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,9 +28,11 @@
                 </li>
             </ul>
 
+            <div sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
                 <button type="submit" class="btn btn-primary m-2">Logout</button>
             </form>
+            </div>
 
         </div>
     </div>
