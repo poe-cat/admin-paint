@@ -1,3 +1,8 @@
+body {
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 img{
 	width: 100%;
 }
