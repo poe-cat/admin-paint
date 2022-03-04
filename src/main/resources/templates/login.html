@@ -17,7 +17,7 @@
         <div class="left">
             <div class="top_link"><a href="/"><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download" alt="">Return home</a></div>
             <div class="contact">
-                <form th:action="@{/login}" method="post">
+                <form name="login" th:action="@{/doLogin}" method="POST">
                     <h3>Sign in</h3>
 
                     <div th:if="${param.logout}">
@@ -30,7 +30,7 @@
 
                     <input type="text" class="form-control" name="username" placeholder="Username" required>
                     <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    <button class="submit">LET'S GO</button>
+                    <button class="submit" value="Login">LET'S GO</button>
                 </form>
             </div>
         </div>
@@ -43,5 +43,7 @@
         </div>
     </div>
 </section>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
