@@ -87,4 +87,9 @@ public class MainController {
         }
         return "redirect:/commissions";
     }
+
+    @RequestMapping("/loginError")
+    public String showErrorPage() {
+        return "loginError";
+    }
 }
