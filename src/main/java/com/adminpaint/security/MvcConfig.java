@@ -9,6 +9,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/403_error").setViewName("403_error");
+        registry.addViewController("/login.html").setViewName("login");
     }
 }
