@@ -8,9 +8,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -36,16 +43,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/register")
-                .permitAll()
                 .antMatchers("*/new/*", "*/edit/*", "*/delete/*").hasRole("ADMIN")
                 .antMatchers("/commissions", "/clients").hasAnyRole("ADMIN", "USER")
                 .and()
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/login?error=true")
-                );
+                .formLogin()
+                .defaultSuccessUrl("/")
+                .loginPage("/login")
+                .loginProcessingUrl("/doLogin")
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler() {
+
+                    @Override
+                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                                        AuthenticationException exception) throws IOException, ServletException {
+                        String username = request.getParameter("username");
+                        String error = exception.getMessage();
+                        System.out.println("A failed login attempt with email: "
+                                + username + ". Reason: " + error);
+
+                        super.setDefaultFailureUrl("/loginError");
+                        super.onAuthenticationFailure(request, response, exception);
+                    }
+                });
+
+        http.logout()
+                .logoutUrl("/doLogout").permitAll()
+                .logoutSuccessUrl("/");
     }
 
     @Bean
